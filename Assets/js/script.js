@@ -8,6 +8,7 @@ var submitButtonEl = document.getElementById("submit-button");
 
 var ingredientArray = [];
 var recipeIDArray =[];
+var instructionsArray = [];
 
 //api keys and variables
 var apiKeyS = "f2608e507b2741e5a596dfffbe06566d";
@@ -24,6 +25,10 @@ function getIngredient() {
   listEl.appendChild(additionalIng);
 }
 
+// 2. find by ingredient --> spoonacular api
+// pass the array to find by ingredient
+// store the recipes in an array
+
 function fetchRecipeIDs(){
   // make sure input is lowercase and no whitespace
   var ingredientInput = (ingredientArray[0].toLowerCase()).replace(" ","");
@@ -31,7 +36,7 @@ function fetchRecipeIDs(){
     var lowerInput = (ingredientArray[i].toLowerCase()).replace(" ","");
     ingredientInput = `${ingredientInput},+${lowerInput}`;
   }
-  apiURL = `${baseApiUrlS}/findByIngredients?apiKey=${apiKeyS}&ingredients=${ingredientInput}&number=5`;
+  var apiURL = `${baseApiUrlS}/findByIngredients?apiKey=${apiKeyS}&ingredients=${ingredientInput}&number=5`;
   console.log(apiURL);
   fetch(apiURL)
     .then(function(response){
@@ -42,7 +47,67 @@ function fetchRecipeIDs(){
         recipeIDArray.push(data[i].id);
       }
       console.log(data);
+      console.log(recipeIDArray);
+      fetchRecipeInstructions();
+
     })
+
+}
+
+function fetchRecipeInstructions(){
+  console.log(recipeIDArray.length);
+  for (let i = 0; i < recipeIDArray.length; i++){
+    var apiUrlTemp = `${baseApiUrlS}/${recipeIDArray[i]}/analyzedInstructions?apiKey=${apiKeyS}`;
+    console.log(apiUrlTemp);
+    fetch (apiUrlTemp)
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(data){
+        console.log(data);
+        for (let i = 0; i < data.length; i++){
+          var instruction = [];
+          for(let j = 0; j < data[i].steps.length; j++){
+            instruction.push(data[i].steps[j]);
+          }
+          instructionsArray.push(instruction);
+        }
+      
+      })
+  }
+}
+
+function fetchYoutubeVid() {
+
+}
+
+function fetchIngredients(ingredArray){
+
+}
+
+// 
+function getInstructionsFromLS(recipe){
+
+}
+
+function getIngredientsFromLS(recipe){
+
+}
+
+
+
+
+
+function saveToLS(recipeObjects){
+  var recipes = localStorage.getItem("recipes");
+  if (recipes){
+    return JSON.parse(recipes);
+  }
+  else {
+    recipes = [];
+  }
+
+  return recipes;
 }
 
 
@@ -50,10 +115,17 @@ function fetchRecipeIDs(){
 // event listeners
 addButtonEl.addEventListener("click", getIngredient);
 submitButtonEl.addEventListener("click", fetchRecipeIDs);
+submitEl.addEventListener("keypress", function(event){
+  if(event.key === "Enter"){
+    event.preventDefault();
+    getIngredient();
+  }
+});
 
-// 2. find by ingredient --> spoonacular api
-// pass the array to find by ingredient
-// store the recipes in an array
+
+
+
+
 
 // 3. print recipes 
 // array of used ingredients --> print to table
