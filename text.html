@@ -1,0 +1,134 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+  <title>Recipe Search</title>
+  <style>
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .recipe {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Recipe Search</h1>
+    <input type="text" id="ingredients" placeholder="Enter ingredients">
+    <button onclick="searchRecipes()">Search</button>
+    <div id="recipeList"></div>
+  </div>
+
+  <script>
+    function searchRecipes() {
+      var ingredients = document.getElementById("ingredients").value;
+      var apiUrl = "https://api.spoonacular.com/recipes/findByIngredients";
+      var apiKey = "8773f9b055e249d888ea740eb029004e";
+      var number = 5;
+
+      var url = apiUrl + "?apiKey=" + apiKey + "&ingredients=" + encodeURIComponent(ingredients) + "&number=" + number;
+
+      fetch(url)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          var recipeList = document.getElementById("recipeList");
+          recipeList.innerHTML = "";
+
+          data.forEach(function (recipe) {
+            var recipeName = recipe.title;
+            var recipeId = recipe.id;
+
+            var recipeElement = document.createElement("div");
+            recipeElement.className = "recipe";
+            recipeElement.innerHTML = "<h3>" + recipeName + "</h3><p>Recipe ID: " + recipeId + "</p>";
+
+            recipeList.appendChild(recipeElement);
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  </script>
+</body>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>YouTube API Video Search</title>
+  <script>
+    // Function to execute the YouTube API search request
+    function searchVideos() {
+      var searchTerm = document.getElementById("searchTerm").value;
+      var apiKey = "AIzaSyCB4Upb_QqH6PLaSdQ4HqzqvS9CpmKiz4c"; // Replace with your actual API key
+
+      // YouTube API request URL
+      var apiUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=" + searchTerm + "&key=" + apiKey;
+
+      // Create a new XMLHttpRequest object
+      var xhr = new XMLHttpRequest();
+
+      // Configure the API request
+      xhr.open("GET", apiUrl, true);
+
+      // Define the onload callback function
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText);
+          var videos = response.items;
+
+          // Clear previous search results
+          var resultsContainer = document.getElementById("results");
+          resultsContainer.innerHTML = "";
+
+          // Iterate through each video and display the title and thumbnail
+          videos.forEach(function (video) {
+            var videoTitle = video.snippet.title;
+            var videoThumbnail = video.snippet.thumbnails.default.url;
+
+            // Create a new <div> element for each video
+            var videoDiv = document.createElement("div");
+
+            // Set the video title as the content of the <div>
+            videoDiv.textContent = videoTitle;
+
+            // Set the video thumbnail as the background image of the <div>
+            videoDiv.style.backgroundImage = "url(" + videoThumbnail + ")";
+
+            // Append the video <div> to the results <div>
+            resultsContainer.appendChild(videoDiv);
+          });
+        }
+      };
+
+      // Send the API request
+      xhr.send();
+    }
+  </script>
+</head>
+
+<body>
+  <h1>YouTube API Video Search</h1>
+
+  <!-- Input field for search term -->
+  <input type="text" id="searchTerm" placeholder="Enter search term">
+
+  <!-- Button to trigger the search -->
+  <button onclick="searchVideos()">Search</button>
+
+  <!-- Container for displaying search results -->
+  <div id="results"></div>
+</body>
+
+</html>
