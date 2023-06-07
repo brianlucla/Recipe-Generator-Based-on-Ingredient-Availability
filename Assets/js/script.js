@@ -9,7 +9,6 @@ var tableContEl = document.getElementById("table-cont");
 
 var ingredientArray = [];
 var recipeIDArray = [];
-
 var recipeNameArray = [];
 
 //api keys and variables
@@ -50,14 +49,14 @@ function fetchRecipeIDs() {
         recipeIDArray.push(data[i].id);
         recipeNameArray.push(data[i].title);
       }
-      setTimeout(fetchRecipeInstructions, 3000);
+      setTimeout(fetchRecipeInstructions, 3000, recipeIDArray);
     });
 }
 
-function fetchRecipeInstructions() {
+function fetchRecipeInstructions(array) {
   var instructionsArray = [];
-  for (let i = 0; i < recipeIDArray.length; i++) {
-    var apiUrlTemp = `${baseApiUrlS}/${recipeIDArray[i]}/analyzedInstructions?apiKey=${apiKeyS}`;
+  for (let i = 0; i < array.length; i++) {
+    var apiUrlTemp = `${baseApiUrlS}/${array[i]}/analyzedInstructions?apiKey=${apiKeyS}`;
     fetch(apiUrlTemp)
       .then(function (response) {
         return response.json();
@@ -91,7 +90,7 @@ var createRecipeTable = function (array) {
     var ingredListEl = document.createElement("ul");
     var instructListEl = document.createElement("ol");
     var recipeNameEl = document.createElement("strong");
-    
+
     var instructionHolder = array[i];
 
     //append to parents
