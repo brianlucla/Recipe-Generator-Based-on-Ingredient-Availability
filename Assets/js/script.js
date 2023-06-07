@@ -1,19 +1,21 @@
+// pseudo code
+
+// 1. take in user input store into an array
 var submitEl = document.getElementById("recipe-input");
 var addButtonEl = document.getElementById("add-button");
 var listEl = document.getElementById("ingredient-list");
 var submitButtonEl = document.getElementById("submit-button");
+var tableContEl = document.getElementById("table-cont");
 
 var ingredientArray = [];
 var recipeIDArray = [];
-var instructionsArray = [];
+var recipeNameArray = [];
 
 //api keys and variables
-var apiKeyS = "1d2e11daf1094abfb02b3314c1211e45";
+var apiKeyS = "afdf8f2bf9664ccc8956b99769aa5a3d";
 var baseApiUrlS = "https://api.spoonacular.com/recipes";
 var apiKeyY = "AIzaSyAVCRPJFLTjkhZaC1cnkLud0mCKnEZTbZQ";
 var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
-
-var requestUrl = "https://www.googleapis.com/youtube/v3/search?key=AIzaSyAVCRPJFLTjkhZaC1cnkLud0mCKnEZTbZQ";
 
 function getIngredient() {
   var ingredient = submitEl.value.trim();
@@ -37,90 +39,101 @@ function fetchRecipeIDs() {
     ingredientInput = `${ingredientInput},+${lowerInput}`;
   }
   var apiURL = `${baseApiUrlS}/findByIngredients?apiKey=${apiKeyS}&ingredients=${ingredientInput}&number=5`;
-  console.log(apiURL);
   fetch(apiURL)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
+      console.log(data, "fetch recipe data");
       for (let i = 0; i < data.length; i++) {
         recipeIDArray.push(data[i].id);
+        recipeNameArray.push(data[i].title);
       }
-      console.log(data);
-      console.log(recipeIDArray);
-      fetchRecipeInstructions();
-    });
-   }
-
-// function fetchYoutubeVid() {
-//   console.log(recipeIDArray.length);
-//   for (let i = 0; i < recipeIDArray.length; i++) {
-//     var apiUrlTemp = `${baseApiUrly}/${recipeIDArray[i]}/analyzedInstructions?apiKey=${apiKeyS}`;
-//     console.log(apiUrlTemp);
-//     fetch(apiUrlTemp)
-//       .then(function (response) {
-//         return response.json();
-//       })
-//       .then(function (data) {
-//         console.log(data);
-//         for (let i = 0; i < data.length; i++) {
-//           var instruction = [];
-//           for (let j = 0; j < data[i].steps.length; j++) {
-//             instruction.push(data[i].steps[j]);
-//           }
-//           instructionsArray.push(instruction);
-//         }
-//       });
-//   }
-// }
-
-
-function fetchYoutubeVid(requestUrl) {
-  var responseText = document.getElementById('project-display');
-  fetch (requestUrl)
-    .then(function(response){
-      console.log(response);
-      if(response.status === 200) {
-        responseText.textContent = response.status;
-      }
-      return response.json();
+      setTimeout(fetchRecipeInstructions, 3000, recipeIDArray);
     });
 }
 
-fetchYoutubeVid(requestUrl);
+function fetchRecipeInstructions(array) {
+  var instructionsArray = [];
+  for (let i = 0; i < array.length; i++) {
+    var apiUrlTemp = `${baseApiUrlS}/${array[i]}/analyzedInstructions?apiKey=${apiKeyS}`;
+    fetch(apiUrlTemp)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
 
+        for (let i = 0; i < data.length; i++) {
+          var instruction = [];
+          for (let j = 0; j < data[i].steps.length; j++) {
+            instruction.push(data[i].steps[j]);
+          }
+          instructionsArray.push(instruction);
+        }
+      });
+  }
+  console.log(instructionsArray);
+  setTimeout(createRecipeTable, 3000, instructionsArray);
+}
 
+var createRecipeTable = function (array) {
+  console.log(array.length);
+  for (let i = 0; i < array.length; i++) {
+    // create html elements
 
+    var tableRowEl = document.createElement("tr");
+    var ingredListContEl = document.createElement("td");
+    var recipeNameContEl = document.createElement("td");
+    var recipeInstructionsEl = document.createElement("td");
+    var videoContainerEl = document.createElement("td");
+    var ingredListEl = document.createElement("ul");
+    var instructListEl = document.createElement("ol");
+    var recipeNameEl = document.createElement("strong");
 
-// function fetchIngredients() {
-//   console.log(ingredientArray);
-//   for (let i = 0; i < ingredientArray.length; ++i){
-//     var ingredApi = `${baseApiUrlS}/${ingredientArray[i]}/complexSearch?apiKey${apiKeyS}`;
-//     console.log(data);
-//     fetch(baseApiUrlS)
-//     .then(function (response){
-//       return response.json();
-//   })
-//     .then(function (data){
-//       console.log(data);
-//       for (let i= 0; i < data.length; i++) {
-//         var items =  [];
-//         for (let u =0; u < data[i].steps.length; u++){
-//           items.push(data[i].steps[u]);
-//         }
-//         ingredientArray.push(items);
-//       }
+    var instructionHolder = array[i];
 
-//     })
+    //append to parents
+    tableContEl.appendChild(tableRowEl);
+    tableRowEl.appendChild(recipeNameContEl);
+    tableRowEl.appendChild(ingredListContEl);
+    tableRowEl.appendChild(recipeInstructionsEl);
+    tableRowEl.appendChild(videoContainerEl);
+    ingredListContEl.appendChild(ingredListEl);
+    recipeNameContEl.appendChild(recipeNameEl);
+    recipeInstructionsEl.appendChild(instructListEl);
 
-//   };
+    //ingredients array that resets after every recipe
+    var recipeIngArray = [];
 
-// }
+    // set text content
+    recipeNameEl.textContent = recipeNameArray[i];
 
+    for (let j = 0; j < instructionHolder.length; j++) {
+      var instructBullet = document.createElement("li");
+      instructBullet.textContent = instructionHolder[j].step;
+      instructListEl.appendChild(instructBullet);
 
-function getInstructionsFromLS(recipe) {}
+      for (let k = 0; k < instructionHolder[j].ingredients.length; k++) {
+        if (
+          recipeIngArray.includes(instructionHolder[j].ingredients[k].name) ===
+          false
+        ) {
+          var ingredBulletEl = document.createElement("li");
+          ingredBulletEl.textContent = instructionHolder[j].ingredients[k].name;
+          ingredListEl.appendChild(ingredBulletEl);
+          recipeIngArray.push(instructionHolder[j].ingredients[k].name);
+        } else {
+          continue;
+        }
+      }
+    }
+  }
+};
 
-function getIngredientsFromLS(recipe) {}
+// fetch youtube video
+
+function fetchYoutubeVid() {}
 
 function saveToLS(recipeObjects) {
   var recipes = localStorage.getItem("recipes");
@@ -143,15 +156,9 @@ submitEl.addEventListener("keypress", function (event) {
   }
 });
 
-// 1. take in user input store into an array
-
-// 2. find by ingreditent --> spoonacular api
-// pass the array to find by ingredient
-// store the recipe in an array
-
 // 3. print recipes
 // array of used ingredients --> print to table
-// pass  recipe id's to get analyzed recipe instructions
+// pass recipe id's to get analyzed recipe instructions
 // iterate thru array of instructions and print to table
 
 // 4. search food videos --> includeIngredients tag
@@ -160,27 +167,6 @@ submitEl.addEventListener("keypress", function (event) {
 // 5. display on the page
 
 // 6. user profiles with stored recipes
-// evnent listener for eacvh row video url
-// take sibling and estract ecipe id into user object
-// map each video url to the array of recipes
-// whichever video they click, we save the recipe id
-
-// variables for light mode
-/*const modeSwitcher = document.querySelector('theme');
-const container = document.querySelector('container');
-
-// default
-const mode = 'dark';
-
-// event listener 
-
-modeSwitcher.addEventListener('click', function(){
-  if(mode === 'dark'); {
-    mode = 'light';
-    container.setAttribute('class', 'light');
-  }
-  else {
-    mode = 'dark';
-    container.setAttribute;('class', 'dark');
-  }
-}) */
+// event listener for each row video url --> for loop thru the parent container
+// map each video url to the array of recipes --> parent container --> array of 5 children elements
+// whichever video they click, we save that recipe id
