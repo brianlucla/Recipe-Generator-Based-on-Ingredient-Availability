@@ -77,7 +77,10 @@ function fetchRecipeInstructions(){
   }
 }
 
-function printRecipes()
+function printRecipes(){
+
+}
+
 function fetchYoutubeVid() {
 
 }
