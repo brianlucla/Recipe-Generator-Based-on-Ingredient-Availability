@@ -5,13 +5,14 @@ var submitEl = document.getElementById("recipe-input");
 var addButtonEl = document.getElementById("add-button");
 var listEl = document.getElementById("ingredient-list");
 var submitButtonEl = document.getElementById("submit-button");
+var tableBodyEl = document.getElementById("recipe-body");
 
 var ingredientArray = [];
 var recipeIDArray = [];
 var instructionsArray = [];
 
 //api keys and variables
-var apiKeyS = "f2608e507b2741e5a596dfffbe06566d";
+var apiKeyS = "b81db67a0fa945b7ac3dec0e0b2516a2";
 var baseApiUrlS = "https://api.spoonacular.com/recipes";
 var apiKeyY = "AIzaSyAVCRPJFLTjkhZaC1cnkLud0mCKnEZTbZQ";
 var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
@@ -21,6 +22,7 @@ function getIngredient() {
   submitEl.value = "";
   ingredientArray.push(ingredient);
   var additionalIng = document.createElement("li");
+
   additionalIng.textContent = ingredient;
   listEl.appendChild(additionalIng);
 }
@@ -74,7 +76,41 @@ function fetchRecipeInstructions() {
   }
 }
 
+     function printRecipes() {
+       for (let i = 0; i < recipeIDArray.length; i++) {
+         var row = document.createElement("tr");
+
+         // Recipe Name??????
+         var nameCell = document.createElement("td");
+         nameCell.textContent = recipeIDArray[i].title;
+         row.appendChild(nameCell);
+
+         // Ingredients???????
+         var ingredientCell = document.createElement("td");
+         ingredientCell.textContent = ingredientArray.join(", ");
+         row.appendChild(ingredientCell);
+
+         // Instructions???????
+         var instructionsCell = document.createElement("td");
+         var instructionsList = document.createElement("ul");
+
+         for (let j = 0; j < instructionsArray[i].length; j++) {
+           var step = document.createElement("li");
+           step.textContent = instructionsArray[i][j].step;
+           instructionsList.appendChild(step);
+         }
+
+         instructionsCell.appendChild(instructionsList);
+         row.appendChild(instructionsCell);
+
+         tableBodyEl.appendChild(row);
+       }
+     }
+    
+
 function fetchYoutubeVid() {}
+
+
 
 function fetchIngredients(ingredArray) {}
 
