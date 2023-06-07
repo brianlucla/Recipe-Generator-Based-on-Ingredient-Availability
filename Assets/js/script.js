@@ -12,7 +12,7 @@ var recipeIDArray = [];
 var instructionsArray = [];
 
 //api keys and variables
-var apiKeyS = "b81db67a0fa945b7ac3dec0e0b2516a2";
+var apiKeyS = "2dae6e1cbc954b95a70956cb55841a3e";
 var baseApiUrlS = "https://api.spoonacular.com/recipes";
 var apiKeyY = "AIzaSyAVCRPJFLTjkhZaC1cnkLud0mCKnEZTbZQ";
 var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
@@ -102,7 +102,6 @@ function fetchRecipeInstructions() {
 
          instructionsCell.appendChild(instructionsList);
          row.appendChild(instructionsCell);
-
          tableBodyEl.appendChild(row);
        }
      }
@@ -132,7 +131,7 @@ function saveToLS(recipeObjects) {
 
 // event listeners
 addButtonEl.addEventListener("click", getIngredient);
-submitButtonEl.addEventListener("click", fetchRecipeIDs);
+submitButtonEl.addEventListener("click", fetchRecipeIDs, printRecipes);
 submitEl.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
