@@ -21,6 +21,7 @@ function getIngredient() {
   submitEl.value = '';
   ingredientArray.push(ingredient);
   var additionalIng = document.createElement("li");
+
   additionalIng.textContent = ingredient;
   listEl.appendChild(additionalIng);
 }

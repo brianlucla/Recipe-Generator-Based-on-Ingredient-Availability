@@ -1,0 +1,64 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin: 50px;
+}
+
+main { 
+  margin-right: 5%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+
+aside {
+  flex: 1;
+  padding: 5%;
+  text-align: left;
+}
+
+.products {
+  
+}
+
+.contianer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.ingredients {
+  justify-content: baseline;
+  color: green;
+}
+
+.light {
+  color:black;
+  background-color: aquamarine;
+}
+
+.dark {
+  color:aquamarine
+  background-color: blue;
+}
+
+.recipe-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.products {
+  text-align: right;
+}
