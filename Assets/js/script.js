@@ -8,10 +8,12 @@ var recipeIDArray = [];
 var instructionsArray = [];
 
 //api keys and variables
-var apiKeyS = "f2608e507b2741e5a596dfffbe06566d";
+var apiKeyS = "1d2e11daf1094abfb02b3314c1211e45";
 var baseApiUrlS = "https://api.spoonacular.com/recipes";
 var apiKeyY = "AIzaSyAVCRPJFLTjkhZaC1cnkLud0mCKnEZTbZQ";
 var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
+
+var requestUrl = "https://www.googleapis.com/youtube/v3/search?key=AIzaSyAVCRPJFLTjkhZaC1cnkLud0mCKnEZTbZQ";
 
 function getIngredient() {
   var ingredient = submitEl.value.trim();
@@ -48,37 +50,74 @@ function fetchRecipeIDs() {
       console.log(recipeIDArray);
       fetchRecipeInstructions();
     });
+   }
+
+// function fetchYoutubeVid() {
+//   console.log(recipeIDArray.length);
+//   for (let i = 0; i < recipeIDArray.length; i++) {
+//     var apiUrlTemp = `${baseApiUrly}/${recipeIDArray[i]}/analyzedInstructions?apiKey=${apiKeyS}`;
+//     console.log(apiUrlTemp);
+//     fetch(apiUrlTemp)
+//       .then(function (response) {
+//         return response.json();
+//       })
+//       .then(function (data) {
+//         console.log(data);
+//         for (let i = 0; i < data.length; i++) {
+//           var instruction = [];
+//           for (let j = 0; j < data[i].steps.length; j++) {
+//             instruction.push(data[i].steps[j]);
+//           }
+//           instructionsArray.push(instruction);
+//         }
+//       });
+//   }
+// }
+
+
+function fetchYoutubeVid(requestUrl) {
+  var responseText = document.getElementById('project-display');
+  fetch (requestUrl)
+    .then(function(response){
+      console.log(response);
+      if(response.status === 200) {
+        responseText.textContent = response.status;
+      }
+      return response.json();
+    });
 }
 
-function fetchRecipeInstructions() {
-  console.log(recipeIDArray.length);
-  for (let i = 0; i < recipeIDArray.length; i++) {
-    var apiUrlTemp = `${baseApiUrlS}/${recipeIDArray[i]}/analyzedInstructions?apiKey=${apiKeyS}`;
-    console.log(apiUrlTemp);
-    fetch(apiUrlTemp)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        console.log(data);
-        for (let i = 0; i < data.length; i++) {
-          var instruction = [];
-          for (let j = 0; j < data[i].steps.length; j++) {
-            instruction.push(data[i].steps[j]);
-          }
-          instructionsArray.push(instruction);
-        }
-      });
-  }
-}
+fetchYoutubeVid(requestUrl);
 
-function printRecipes() {}
 
-function fetchYoutubeVid() {}
 
-function fetchIngredients(ingredArray) {}
 
-//
+// function fetchIngredients() {
+//   console.log(ingredientArray);
+//   for (let i = 0; i < ingredientArray.length; ++i){
+//     var ingredApi = `${baseApiUrlS}/${ingredientArray[i]}/complexSearch?apiKey${apiKeyS}`;
+//     console.log(data);
+//     fetch(baseApiUrlS)
+//     .then(function (response){
+//       return response.json();
+//   })
+//     .then(function (data){
+//       console.log(data);
+//       for (let i= 0; i < data.length; i++) {
+//         var items =  [];
+//         for (let u =0; u < data[i].steps.length; u++){
+//           items.push(data[i].steps[u]);
+//         }
+//         ingredientArray.push(items);
+//       }
+
+//     })
+
+//   };
+
+// }
+
+
 function getInstructionsFromLS(recipe) {}
 
 function getIngredientsFromLS(recipe) {}
