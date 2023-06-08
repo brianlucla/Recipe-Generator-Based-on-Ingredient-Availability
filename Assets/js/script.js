@@ -5,14 +5,15 @@ var submitEl = document.getElementById("recipe-input");
 var addButtonEl = document.getElementById("add-button");
 var listEl = document.getElementById("ingredient-list");
 var submitButtonEl = document.getElementById("submit-button");
-var tableBodyEl = document.getElementById("recipe-body");
+var tableContEl = document.getElementById("table-cont");
 
 var ingredientArray = [];
 var recipeIDArray = [];
-var instructionsArray = [];
+
+var recipeNameArray = [];
 
 //api keys and variables
-var apiKeyS = "2dae6e1cbc954b95a70956cb55841a3e";
+var apiKeyS = "afdf8f2bf9664ccc8956b99769aa5a3d";
 var baseApiUrlS = "https://api.spoonacular.com/recipes";
 var apiKeyY = "AIzaSyAVCRPJFLTjkhZaC1cnkLud0mCKnEZTbZQ";
 var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
@@ -39,32 +40,31 @@ function fetchRecipeIDs() {
     ingredientInput = `${ingredientInput},+${lowerInput}`;
   }
   var apiURL = `${baseApiUrlS}/findByIngredients?apiKey=${apiKeyS}&ingredients=${ingredientInput}&number=5`;
-  console.log(apiURL);
   fetch(apiURL)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
+      console.log(data, "fetch recipe data");
       for (let i = 0; i < data.length; i++) {
         recipeIDArray.push(data[i].id);
+        recipeNameArray.push(data[i].title);
       }
-      console.log(data);
-      console.log(recipeIDArray);
-      fetchRecipeInstructions();
+      setTimeout(fetchRecipeInstructions, 3000);
     });
 }
 
 function fetchRecipeInstructions() {
-  console.log(recipeIDArray.length);
+  var instructionsArray = [];
   for (let i = 0; i < recipeIDArray.length; i++) {
     var apiUrlTemp = `${baseApiUrlS}/${recipeIDArray[i]}/analyzedInstructions?apiKey=${apiKeyS}`;
-    console.log(apiUrlTemp);
     fetch(apiUrlTemp)
       .then(function (response) {
         return response.json();
       })
       .then(function (data) {
         console.log(data);
+
         for (let i = 0; i < data.length; i++) {
           var instruction = [];
           for (let j = 0; j < data[i].steps.length; j++) {
@@ -74,49 +74,67 @@ function fetchRecipeInstructions() {
         }
       });
   }
+  console.log(instructionsArray);
+  setTimeout(createRecipeTable, 3000, instructionsArray);
 }
 
-     function printRecipes() {
-       for (let i = 0; i < recipeIDArray.length; i++) {
-         var row = document.createElement("tr");
+var createRecipeTable = function (array) {
+  console.log(array.length);
+  for (let i = 0; i < array.length; i++) {
+    // create html elements
 
-         // Recipe Name??????
-         var nameCell = document.createElement("td");
-         nameCell.textContent = recipeIDArray[i].title;
-         row.appendChild(nameCell);
-
-         // Ingredients???????
-         var ingredientCell = document.createElement("td");
-         ingredientCell.textContent = ingredientArray.join(", ");
-         row.appendChild(ingredientCell);
-
-         // Instructions???????
-         var instructionsCell = document.createElement("td");
-         var instructionsList = document.createElement("ul");
-
-         for (let j = 0; j < instructionsArray[i].length; j++) {
-           var step = document.createElement("li");
-           step.textContent = instructionsArray[i][j].step;
-           instructionsList.appendChild(step);
-         }
-
-         instructionsCell.appendChild(instructionsList);
-         row.appendChild(instructionsCell);
-         tableBodyEl.appendChild(row);
-       }
-     }
+    var tableRowEl = document.createElement("tr");
+    var ingredListContEl = document.createElement("td");
+    var recipeNameContEl = document.createElement("td");
+    var recipeInstructionsEl = document.createElement("td");
+    var videoContainerEl = document.createElement("td");
+    var ingredListEl = document.createElement("ul");
+    var instructListEl = document.createElement("ol");
+    var recipeNameEl = document.createElement("strong");
     
+    var instructionHolder = array[i];
+
+    //append to parents
+    tableContEl.appendChild(tableRowEl);
+    tableRowEl.appendChild(recipeNameContEl);
+    tableRowEl.appendChild(ingredListContEl);
+    tableRowEl.appendChild(recipeInstructionsEl);
+    tableRowEl.appendChild(videoContainerEl);
+    ingredListContEl.appendChild(ingredListEl);
+    recipeNameContEl.appendChild(recipeNameEl);
+    recipeInstructionsEl.appendChild(instructListEl);
+
+    //ingredients array that resets after every recipe
+    var recipeIngArray = [];
+
+    // set text content
+    recipeNameEl.textContent = recipeNameArray[i];
+
+    for (let j = 0; j < instructionHolder.length; j++) {
+      var instructBullet = document.createElement("li");
+      instructBullet.textContent = instructionHolder[j].step;
+      instructListEl.appendChild(instructBullet);
+
+      for (let k = 0; k < instructionHolder[j].ingredients.length; k++) {
+        if (
+          recipeIngArray.includes(instructionHolder[j].ingredients[k].name) ===
+          false
+        ) {
+          var ingredBulletEl = document.createElement("li");
+          ingredBulletEl.textContent = instructionHolder[j].ingredients[k].name;
+          ingredListEl.appendChild(ingredBulletEl);
+          recipeIngArray.push(instructionHolder[j].ingredients[k].name);
+        } else {
+          continue;
+        }
+      }
+    }
+  }
+};
+
+// fetch youtube video
 
 function fetchYoutubeVid() {}
-
-
-
-function fetchIngredients(ingredArray) {}
-
-//
-function getInstructionsFromLS(recipe) {}
-
-function getIngredientsFromLS(recipe) {}
 
 function saveToLS(recipeObjects) {
   var recipes = localStorage.getItem("recipes");
@@ -131,7 +149,7 @@ function saveToLS(recipeObjects) {
 
 // event listeners
 addButtonEl.addEventListener("click", getIngredient);
-submitButtonEl.addEventListener("click", fetchRecipeIDs, printRecipes);
+submitButtonEl.addEventListener("click", fetchRecipeIDs);
 submitEl.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
