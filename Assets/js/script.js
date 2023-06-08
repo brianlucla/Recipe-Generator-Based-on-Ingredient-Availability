@@ -9,7 +9,6 @@ var tableContEl = document.getElementById("table-cont");
 
 var ingredientArray = [];
 var recipeIDArray = [];
-
 var recipeNameArray = [];
 
 //api keys and variables
@@ -18,6 +17,7 @@ var baseApiUrlS = "https://api.spoonacular.com/recipes";
 var apiKeyY = "AIzaSyAVCRPJFLTjkhZaC1cnkLud0mCKnEZTbZQ";
 var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
 
+//creates list of ingredient user inputs
 function getIngredient() {
   var ingredient = submitEl.value.trim();
   submitEl.value = "";
@@ -74,15 +74,16 @@ function fetchRecipeInstructions() {
         }
       });
   }
-  console.log(instructionsArray);
+  //console.log(instructionsArray);
   setTimeout(createRecipeTable, 3000, instructionsArray);
 }
+
 
 var createRecipeTable = function (array) {
   console.log(array.length);
   for (let i = 0; i < array.length; i++) {
     // create html elements
-
+    
     var tableRowEl = document.createElement("tr");
     var ingredListContEl = document.createElement("td");
     var recipeNameContEl = document.createElement("td");
@@ -93,7 +94,7 @@ var createRecipeTable = function (array) {
     var recipeNameEl = document.createElement("strong");
     
     var instructionHolder = array[i];
-
+    
     //append to parents
     tableContEl.appendChild(tableRowEl);
     tableRowEl.appendChild(recipeNameContEl);
@@ -129,23 +130,27 @@ var createRecipeTable = function (array) {
         }
       }
     }
+    saveToLS(recipeNameEl, recipeIngArray, instructionHolder);
   }
 };
 
-// fetch youtube video
 
-function fetchYoutubeVid() {}
+function saveToLS(recipename, ingred, inst) {
+  if (submitEl !== '') {
+      var LocalStorageArr = JSON.parse(window.localStorage.getItem("recipes")) || [];
 
-function saveToLS(recipeObjects) {
-  var recipes = localStorage.getItem("recipes");
-  if (recipes) {
-    return JSON.parse(recipes);
-  } else {
-    recipes = [];
+      var newRecipe = {
+        name: recipename.textContent,
+        ing: ingred,
+        instruct: inst,
+      };
+
+      LocalStorageArr.push(NewRecipe);
+      window.localStorage.setItem("recipes", JSON.stringify(LocalStorageArr));
   }
-
-  return recipes;
 }
+
+//localStorage.removeItem("recipes");
 
 // event listeners
 addButtonEl.addEventListener("click", getIngredient);
