@@ -1,93 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="./Assets/css/style.css">
+
+  <link rel="stylesheet" href="Assets/css/style.css">
   <title>Document</title>
-
-<!--header-->
-
 </head>
+
 <body>
   <header>
-    <h1 class="text-center">RECIPE GENERATOR</h1>
-    <nav class="text-right">
-      <div class="row toggle">
-        <div class="col">
-          <p>Dark Mode</p>
-      </div>
-      <label class="switch col">
-        <input type="checkbox" id="theme">
-        <span class="slider round"></span>
-      </label>
-      <div class="col">
-        <p>Light Mode</p>
-      </div>
-      </div>
-      <li> <a href="#History">History</a></li>
-    </nav>
-      <h2 class="text-center">Fill your Tummy</h2>
+
   </header>
+  <div id="content-container">
+    <input type="search" id="recipe-input" placeholder="Type in your ingredients!" autocomplete="on" name="ingredients">
+    <button id="add-button">Add</button>
+    <button id="submit-button">Submit Ingredient List!</button>
 
-<!--main-->
-  <main>
-    <div class="add-button">
 
-      <input type="search" id="recipe-input" placeholder="Type in your ingredients!" autucomplete="on">
-     <button id="add-button">Add</button>
-     <button id="submit-button">Submit Ingredients</button>
+    <ol id="ingredient-list">
+
+    </ol>
+    <div class="col-md col-xl-8">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Recipe Name</th>
+            <th>Ingredient List</th>
+            <th>Recipe Instructions</th>
+            <th>Youtube Video</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="table-cont">
+
+        </tbody>
+      </table>
     </div>
-    
-    <!--sidebar-->
-     <aside>
-        
-      <div id="ingredient-list">
-        <h2>List of Input Ingredients</h2>
-          <ol class='results'></ol>
-    </div>
-    </aside>
+  </div>
 
-    <section class="products">
-      <h2>Results</h2>
-      <div class="container"></div>
-        <a href="#" class="recipe-one">
-          <div>
-            <h3>Recipe One</h3>
-          </div>
-        </a>
 
-        <a href="#" class="recipe-two">
-          <div>
-            <h3>Recipe Two</h3>
-          </div>
-        </a>
 
-        <a href="#" class="recipe-Three">
-          <div>
-            <h3>Recipe Three</h3>
-          </div>
-        </a>
 
-        <a href="#" class="recipe-Four">
-          <div>
-            <h3>Recipe Four</h3>
-          </div>
-        </a>
+  <script src="Assets/js/script.js"></script>
 
-        <a href="#" class="recipe-five">
-          <div>
-            <h3>Recipe Five</h3>
-          </div>
-        </a>
-      </div>
-    </section>
-  </main>
 
-  <section>
-    
-  </section>
-  <script src="./Assets/js/script.js"></script>
 </body>
+
 </html>
