@@ -5,7 +5,6 @@ var submitButtonEl = document.getElementById("submit-button");
 var tableContEl = document.getElementById("table-cont");
 
 var ingredientArray = [];
-<<<<<<< HEAD
 var recipeIDArray = [];
 var recipeNameArray = [];
 var youtubeIdArray = [];
@@ -16,16 +15,6 @@ var apiKeyS = "afdf8f2bf9664ccc8956b99769aa5a3d";
 var baseApiUrlS = "https://api.spoonacular.com/recipes";
 var apiKeyY = "AIzaSyCB4Upb_QqH6PLaSdQ4HqzqvS9CpmKiz4c";
 var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
-=======
-var recipeIdArray = [];
- 
-// api keys 
-var ytKey = 'AIzaSyAhHaPvriyLo4xcteaMEhm26w-riNA5URo';
-var spoonKey = '1d2e11daf1094abfb02b3314c1211e45';
-var ytUrl = 'https://youtube.googleapis.com/youtube/v3/';
-var apiURL = "https://api.spoonacular.com/recipes/findByIngredients?";
-
->>>>>>> 18996e5cd32c09de483105df31af502b4cc77657
 
 //creates list of ingredient user inputs
 function getIngredient() {
@@ -39,7 +28,7 @@ function getIngredient() {
 
 function fetchRecipes() {
   var ingredientInput = ingredientArray[0];
-  for(let i = 1; i < ingredientArray.length; i++){
+  for (let i = 1; i < ingredientArray.length; i++) {
     ingredientArray[i].toLowerCase();
     ingreidentInput = `${ingreidentInput},+${ingreidentArray[i]}`;
   }
@@ -47,17 +36,16 @@ function fetchRecipes() {
   console.log(apiUrl);
 }
 
-addButtonEl.addEventListener('click', getIngredient);
-submitButtonEl.addEventListener('click', fetchRecipes);
-// psudeo code 
+addButtonEl.addEventListener("click", getIngredient);
+submitButtonEl.addEventListener("click", fetchRecipes);
+// psudeo code
 
-// 1. take in user input store into an array 
+// 1. take in user input store into an array
 
-// 2. find by ingreditent --> spoonacular api 
+// 2. find by ingreditent --> spoonacular api
 // pass the array to find by ingredient
-// store the recipe in an array  
+// store the recipe in an array
 
-<<<<<<< HEAD
 function fetchRecipeIDs() {
   // make sure input is lowercase and no whitespace
   var ingredientInput = ingredientArray[0].toLowerCase().replace(" ", "");
@@ -223,25 +211,19 @@ submitEl.addEventListener("keypress", function (event) {
 // array of used ingredients --> print to table
 // pass recipe id's to get analyzed recipe instructions
 // iterate thru array of instructions and print to table
-=======
-// 3. print recipes 
-// array of used ingredients --> print to table 
-// pass  recipe id's to get analyzed recipe instructions
-// iterate thru array of instructions and print to table 
->>>>>>> 18996e5cd32c09de483105df31af502b4cc77657
 
 // 4. search food videos --> includeIngredients tag
 // youtube api --> go fetch the video
 
-// 5. display on the page 
+// 5. display on the page
 
-// 6. user profiles with stored recipes 
+// 6. user profiles with stored recipes
 // evnent listener for eacvh row video url
-// take sibling and estract ecipe id into user object 
+// take sibling and estract ecipe id into user object
 // map each video url to the array of recipes
-// whichever video they click, we save the recipe id 
+// whichever video they click, we save the recipe id
 
-// variables for light mode 
+// variables for light mode
 /*const modeSwitcher = document.querySelector('theme');
 const container = document.querySelector('container');
 
