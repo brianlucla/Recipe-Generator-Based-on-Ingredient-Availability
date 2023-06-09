@@ -10,11 +10,13 @@ var tableContEl = document.getElementById("table-cont");
 var ingredientArray = [];
 var recipeIDArray = [];
 var recipeNameArray = [];
+var youtubeIdArray = [];
+var youtubeNameArray = [];
 
 //api keys and variables
 var apiKeyS = "afdf8f2bf9664ccc8956b99769aa5a3d";
 var baseApiUrlS = "https://api.spoonacular.com/recipes";
-var apiKeyY = "AIzaSyAVCRPJFLTjkhZaC1cnkLud0mCKnEZTbZQ";
+var apiKeyY = "AIzaSyCB4Upb_QqH6PLaSdQ4HqzqvS9CpmKiz4c";
 var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
 
 //creates list of ingredient user inputs
@@ -78,32 +80,33 @@ function fetchRecipeInstructions() {
   setTimeout(createRecipeTable, 3000, instructionsArray);
 }
 
-
 var createRecipeTable = function (array) {
   console.log(array.length);
   for (let i = 0; i < array.length; i++) {
     // create html elements
-    
+
     var tableRowEl = document.createElement("tr");
     var ingredListContEl = document.createElement("td");
     var recipeNameContEl = document.createElement("td");
     var recipeInstructionsEl = document.createElement("td");
-    var videoContainerEl = document.createElement("td");
+    //var videoContainerEl = document.createElement("td");
     var ingredListEl = document.createElement("ul");
     var instructListEl = document.createElement("ol");
     var recipeNameEl = document.createElement("strong");
-    
+
     var instructionHolder = array[i];
-    
+
     //append to parents
     tableContEl.appendChild(tableRowEl);
     tableRowEl.appendChild(recipeNameContEl);
     tableRowEl.appendChild(ingredListContEl);
     tableRowEl.appendChild(recipeInstructionsEl);
-    tableRowEl.appendChild(videoContainerEl);
+    //tableRowEl.appendChild(videoContainerEl);
     ingredListContEl.appendChild(ingredListEl);
     recipeNameContEl.appendChild(recipeNameEl);
     recipeInstructionsEl.appendChild(instructListEl);
+
+    youtubeVideos(recipeNameArray[i], tableRowEl);
 
     //ingredients array that resets after every recipe
     var recipeIngArray = [];
@@ -133,20 +136,50 @@ var createRecipeTable = function (array) {
     saveToLS(recipeNameEl, recipeIngArray, instructionHolder);
   }
 };
+function youtubeVideos(recipeName, tableRow) {
+  // for (let i = 0; i < recipeIDArray.length; i++)
 
+  var ytApi = `${baseApiUrlY}/search?key=${apiKeyY}&part=snippet&q=${recipeName}recipe&maxResults=1`;
+
+  fetch(ytApi)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      if (data.items && data.items.length > 0) {
+        var videoId = data.items[0].id.videoId;
+        var videoTitle = data.items[0].snippet.title;
+        displayVideo(videoId, videoTitle, tableRow);
+      }
+    });
+}
+
+function displayVideo(videoId, videoTitle, tableRow) {
+  console.log("hey");
+  var videoPartEl = document.createElement("div");
+  var videoContainerEl = document.createElement("td");
+  tableRow.appendChild(videoContainerEl);
+
+  videoPartEl.innerHTML = `<iframe width="120" height="120" src="https://www.youtube.com/embed/${videoId}"></iframe>
+    <h3>${videoTitle}</h3>`;
+
+  videoContainerEl.appendChild(videoPartEl);
+}
 
 function saveToLS(recipename, ingred, inst) {
-  if (submitEl !== '') {
-      var LocalStorageArr = JSON.parse(window.localStorage.getItem("recipes")) || [];
+  if (submitEl !== "") {
+    var LocalStorageArr =
+      JSON.parse(window.localStorage.getItem("recipes")) || [];
 
-      var newRecipe = {
-        name: recipename.textContent,
-        ing: ingred,
-        instruct: inst,
-      };
+    var newRecipe = {
+      name: recipename.textContent,
+      ing: ingred,
+      instruct: inst,
+    };
 
-      LocalStorageArr.push(NewRecipe);
-      window.localStorage.setItem("recipes", JSON.stringify(LocalStorageArr));
+    LocalStorageArr.push(newRecipe);
+    window.localStorage.setItem("recipes", JSON.stringify(LocalStorageArr));
   }
 }
 
