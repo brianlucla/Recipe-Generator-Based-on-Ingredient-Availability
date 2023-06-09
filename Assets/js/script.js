@@ -13,7 +13,7 @@ var youtubeNameArray = [];
 //api keys and variables
 var apiKeyS = "d7f26522dc054e5f9de18fb780e8a6c1";
 var baseApiUrlS = "https://api.spoonacular.com/recipes";
-var apiKeyY = "AIzaSyCnBSgETtGC-rZ3cJoN9vDLvtXgxODIq6s";
+var apiKeyY = "AIzaSyC4py26ZpNYdYQXRhti8DtO6hXKvXWbk2A";
 var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
 
 function getIngredient() {
@@ -120,11 +120,11 @@ var createRecipeTable = function (array) {
   
   
 
-    setTimeout(() => {
-      displayVideoUrl(`https://www.youtube.com/watch?v=${youtubeIdArray[i]}`, tableRowEl);
+    // setTimeout(() => {
+    //   displayVideoUrl(`https://www.youtube.com/watch?v=${youtubeIdArray[i]}`, tableRowEl);
 
-    }, 1000);
-    console.log(youtubeIdArray[0]);
+    // }, 1000);
+    // console.log(youtubeIdArray[0]);
 
     // displayVideoUrl("https://www.youtube.com/watch?v=${result.id.videoId}",tableRowEl);
 
@@ -199,18 +199,18 @@ function youtubeVideos(recipeName, tableRow) {
 
 
 
-function displayVideoUrl(videoUrl, tableRow){
-  var videoUrlEl = document.createElement("a");
-  videoUrlEl.href = videoUrl;
-  videoUrlEl.textContent = videoUrl;
+// function displayVideoUrl(videoUrl, tableRow){
+//   var videoUrlEl = document.createElement("a");
+//   videoUrlEl.href = videoUrl;
+//   videoUrlEl.textContent = videoUrl;
 
-  // var videoUrlContainerEl = document.createElement("td");
+//   // var videoUrlContainerEl = document.createElement("td");
 
 
-  videoUrlContainerEl.appendChild(videoUrlEl);
-  tableRow.appendChild(videoUrlContainerEl);
+//   videoUrlContainerEl.appendChild(videoUrlEl);
+//   tableRow.appendChild(videoUrlContainerEl);
   
-}
+// }
 
 
 
@@ -224,7 +224,7 @@ function displayVideo(videoId, videoTitle, tableRow) {
   tableRow.appendChild(videoContainerEl);
 
   videoPartEl.innerHTML = `<iframe width="250" height="250" src="https://www.youtube.com/embed/${videoId}"></iframe>
-    <h3>${videoTitle}</h3><span class ="lsVideo"${videoId}</span>`;
+    <h3>${videoTitle}</h3>`;
 
   videoContainerEl.appendChild(videoPartEl);
   // youtubeVideosUrl();
@@ -232,16 +232,21 @@ function displayVideo(videoId, videoTitle, tableRow) {
   // youtubeVideosUrl();
 }
 
-function saveToLS(recipeObjects) {
-  var recipes = localStorage.getItem("recipes");
-  if (recipes) {
-    return JSON.parse(recipes);
-  } else {
-    recipes = [];
-  }
 
-  return recipes;
-  
+function saveToLS(recipename, ingred, inst) {
+  if (submitEl !== "") {
+    var LocalStorageArr =
+      JSON.parse(window.localStorage.getItem("recipes")) || [];
+
+    var newRecipe = {
+      name: recipename.textContent,
+      ing: ingred,
+      instruct: inst,
+    };
+
+    LocalStorageArr.push(newRecipe);
+    window.localStorage.setItem("recipes", JSON.stringify(LocalStorageArr));
+  }
 }
 // event listeners
 addButtonEl.addEventListener("click", getIngredient);
