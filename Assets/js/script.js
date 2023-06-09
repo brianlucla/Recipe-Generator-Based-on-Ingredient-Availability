@@ -41,7 +41,6 @@ function getIngredient() {
 //   var loadingSymbol = document.getElementById("loader");
 //   loadingSymbol.remove();
 
-
 function fetchRecipeIDs() {
   // loadingStuff();
   // make sure input is lowercase and no whitespace
@@ -91,7 +90,7 @@ function fetchRecipeInstructions(array) {
 
 var createRecipeTable = function (array) {
   console.log(array.length);
-  // var youtubeIdArray = []; 
+  // var youtubeIdArray = [];
   for (let i = 0; i < array.length; i++) {
     // create html elements
 
@@ -117,8 +116,6 @@ var createRecipeTable = function (array) {
     recipeInstructionsEl.appendChild(instructListEl);
 
     youtubeVideos(recipeNameArray[i], tableRowEl);
-  
-  
 
     // setTimeout(() => {
     //   displayVideoUrl(`https://www.youtube.com/watch?v=${youtubeIdArray[i]}`, tableRowEl);
@@ -156,7 +153,6 @@ var createRecipeTable = function (array) {
   }
 };
 
-
 function youtubeVideos(recipeName, tableRow) {
   // for (let i = 0; i < recipeIDArray.length; i++)
 
@@ -171,7 +167,7 @@ function youtubeVideos(recipeName, tableRow) {
       console.log(data);
       if (data.items && data.items.length > 0) {
         var videoId = data.items[0].id.videoId;
-        console.log(videoId)
+        console.log(videoId);
         var videoTitle = data.items[0].snippet.title;
         displayVideo(videoId, videoTitle, tableRow);
         youtubeIdArray.push(videoId);
@@ -179,7 +175,6 @@ function youtubeVideos(recipeName, tableRow) {
       }
     });
 }
-
 
 // function youtubeVideosUrl(recipeName, tableRow) {
 //   var ytUrlApi = `${baseApiUrlY}/search?key=${apiKeyY}&part=snippet&type=video&q=${recipeName} recipe`;
@@ -197,8 +192,6 @@ function youtubeVideos(recipeName, tableRow) {
 //     });
 // }
 
-
-
 // function displayVideoUrl(videoUrl, tableRow){
 //   var videoUrlEl = document.createElement("a");
 //   videoUrlEl.href = videoUrl;
@@ -206,21 +199,16 @@ function youtubeVideos(recipeName, tableRow) {
 
 //   // var videoUrlContainerEl = document.createElement("td");
 
-
 //   videoUrlContainerEl.appendChild(videoUrlEl);
 //   tableRow.appendChild(videoUrlContainerEl);
-  
+
 // }
-
-
-
 
 function displayVideo(videoId, videoTitle, tableRow) {
   console.log("hey");
   var videoPartEl = document.createElement("div");
   var videoContainerEl = document.createElement("td");
-  
-  
+
   tableRow.appendChild(videoContainerEl);
 
   videoPartEl.innerHTML = `<iframe width="250" height="250" src="https://www.youtube.com/embed/${videoId}"></iframe>
@@ -228,10 +216,9 @@ function displayVideo(videoId, videoTitle, tableRow) {
 
   videoContainerEl.appendChild(videoPartEl);
   // youtubeVideosUrl();
-  console.log("hi")
+  console.log("hi");
   // youtubeVideosUrl();
 }
-
 
 function saveToLS(recipename, ingred, inst) {
   if (submitEl !== "") {
