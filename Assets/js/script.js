@@ -150,6 +150,7 @@ var createRecipeTable = function (array) {
         }
       }
     }
+    saveToLS(recipeNameEl, recipeIngArray, instructionHolder);
   }
 };
 
