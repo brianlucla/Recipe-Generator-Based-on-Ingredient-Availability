@@ -2,11 +2,9 @@ function printRecipe() {
   var LocalStorageArr =
     JSON.parse(window.localStorage.getItem("recipes")) || [];
 
-  var tableContEl = document.getElementById("table-cont");
-
   for (let i = 0; i < LocalStorageArr.length; i++) {
     // create html elements
-
+    var tableContEl = document.getElementById("table-cont");
     var tableRowEl = document.createElement("tr");
     var ingredListContEl = document.createElement("td");
     var recipeNameContEl = document.createElement("td");
@@ -41,6 +39,24 @@ function printRecipe() {
   }
 }
 
+function loadVideosFromLocalStorage() {
+  var localStorageData =
+    JSON.parse(window.localStorage.getItem("videos")) || [];
+
+  var tableRows = document.getElementsByTagName("tr");
+
+  for (let i = 0; i < localStorageData.length; i++) {
+    var videoPartEl = document.createElement("div");
+    var videoContainerEl = document.createElement("td");
+    tableRows[i].appendChild(videoContainerEl);
+
+    videoPartEl.innerHTML = `<iframe width="250" height="250" src="https://www.youtube.com/embed/${localStorageData[i].id}"></iframe>
+    <h3>${localStorageData[i].title}</h3>`;
+
+    videoContainerEl.appendChild(videoPartEl);
+  }
+}
+
 function clearRecipe() {
   window.localStorage.removeItem("recipes");
   window.location.reload();
@@ -49,3 +65,4 @@ function clearRecipe() {
 document.getElementById("clear").onclick = clearRecipe;
 
 printRecipe();
+loadVideosFromLocalStorage();
