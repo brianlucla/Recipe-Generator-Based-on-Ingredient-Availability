@@ -11,12 +11,14 @@ var youtubeIdArray = [];
 var youtubeNameArray = [];
 
 //api keys and variables
-var apiKeyS = "d7f26522dc054e5f9de18fb780e8a6c1";
+var apiKeyS = "9a8a21c80703498185912689fff944fb";
 var baseApiUrlS = "https://api.spoonacular.com/recipes";
 var apiKeyY = "AIzaSyC4py26ZpNYdYQXRhti8DtO6hXKvXWbk2A";
 var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
 
 function getIngredient() {
+  var ingredient = submitEl.value.trim();
+  submitEl.value = "";
   var ingredient = submitEl.value.trim();
   submitEl.value = "";
   ingredientArray.push(ingredient);
@@ -27,7 +29,20 @@ function getIngredient() {
 }
 
 // 2. find by ingredient --> spoonacular api
+// 2. find by ingredient --> spoonacular api
 // pass the array to find by ingredient
+// store the recipes in an array
+
+// function loadingStuff() {
+//   var loadingSymbol = document.createElement("div");
+//   loadingSymbol.setAttribute("id", "loader");
+
+//   tableContEl.append(loadingSymbol);
+// }
+
+// function cirle.ff() {
+//   var loadingSymbol = document.getElementById("loader");
+//   loadingSymbol.remove();
 // store the recipes in an array
 
 // function loadingStuff() {
@@ -216,10 +231,12 @@ function displayVideo(videoId, videoTitle, tableRow) {
     <h3>${videoTitle}</h3>`;
 
   videoContainerEl.appendChild(videoPartEl);
+  saveToLsVid(videoId, videoTitle);
   // youtubeVideosUrl();
   console.log("hi");
   // youtubeVideosUrl();
 }
+
 
 function saveToLS(recipename, ingred, inst) {
   if (submitEl !== "") {
@@ -236,6 +253,20 @@ function saveToLS(recipename, ingred, inst) {
     window.localStorage.setItem("recipes", JSON.stringify(LocalStorageArr));
   }
 }
+
+
+function saveToLsVid(videoId, videoTitle) {
+  var videoData = {
+    id: videoId,
+    title: videoTitle,
+  };
+
+  var localStorageArr = JSON.parse(window.localStorage.getItem("videos")) || [];
+  localStorageArr.push(videoData);
+  window.localStorage.setItem("videos", JSON.stringify(localStorageArr));
+}
+
+
 // event listeners
 addButtonEl.addEventListener("click", getIngredient);
 submitButtonEl.addEventListener("click", fetchRecipeIDs);
