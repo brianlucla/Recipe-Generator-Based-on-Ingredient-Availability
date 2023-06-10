@@ -19,6 +19,8 @@ var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
 function getIngredient() {
   var ingredient = submitEl.value.trim();
   submitEl.value = "";
+  var ingredient = submitEl.value.trim();
+  submitEl.value = "";
   ingredientArray.push(ingredient);
   var additionalIng = document.createElement("li");
 
@@ -27,7 +29,20 @@ function getIngredient() {
 }
 
 // 2. find by ingredient --> spoonacular api
+// 2. find by ingredient --> spoonacular api
 // pass the array to find by ingredient
+// store the recipes in an array
+
+// function loadingStuff() {
+//   var loadingSymbol = document.createElement("div");
+//   loadingSymbol.setAttribute("id", "loader");
+
+//   tableContEl.append(loadingSymbol);
+// }
+
+// function cirle.ff() {
+//   var loadingSymbol = document.getElementById("loader");
+//   loadingSymbol.remove();
 // store the recipes in an array
 
 // function loadingStuff() {
