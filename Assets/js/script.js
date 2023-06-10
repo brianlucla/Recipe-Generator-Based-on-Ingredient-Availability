@@ -11,7 +11,7 @@ var youtubeIdArray = [];
 var youtubeNameArray = [];
 
 //api keys and variables
-var apiKeyS = "d7f26522dc054e5f9de18fb780e8a6c1";
+var apiKeyS = "9a8a21c80703498185912689fff944fb";
 var baseApiUrlS = "https://api.spoonacular.com/recipes";
 var apiKeyY = "AIzaSyC4py26ZpNYdYQXRhti8DtO6hXKvXWbk2A";
 var baseApiUrlY = "https://www.googleapis.com/youtube/v3";

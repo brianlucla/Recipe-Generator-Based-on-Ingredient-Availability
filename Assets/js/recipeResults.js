@@ -39,19 +39,19 @@ function printRecipe() {
   }
 }
 
-function loadVideosFromLocalStorage() {
-  var localStorageData =
+function printVideo() {
+  var localStorageArr =
     JSON.parse(window.localStorage.getItem("videos")) || [];
 
-  var tableRows = document.getElementsByTagName("tr");
+    var tableRows = document.getElementsByTagName("tr");
 
-  for (let i = 0; i < localStorageData.length; i++) {
+  for (let i = 0; i < localStorageArr.length; i++) {
     var videoPartEl = document.createElement("div");
     var videoContainerEl = document.createElement("td");
     tableRows[i].appendChild(videoContainerEl);
 
-    videoPartEl.innerHTML = `<iframe width="250" height="250" src="https://www.youtube.com/embed/${localStorageData[i].id}"></iframe>
-    <h3>${localStorageData[i].title}</h3>`;
+    videoPartEl.innerHTML = `<iframe width="250" height="250" src="https://www.youtube.com/embed/${localStorageArr[i].id}"></iframe>
+    <h3>${localStorageArr[i].title}</h3>`;
 
     videoContainerEl.appendChild(videoPartEl);
   }
@@ -65,4 +65,4 @@ function clearRecipe() {
 document.getElementById("clear").onclick = clearRecipe;
 
 printRecipe();
-loadVideosFromLocalStorage();
+printVideo();
