@@ -19,8 +19,6 @@ var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
 function getIngredient() {
   var ingredient = submitEl.value.trim();
   submitEl.value = "";
-  var ingredient = submitEl.value.trim();
-  submitEl.value = "";
   ingredientArray.push(ingredient);
   var additionalIng = document.createElement("li");
 
