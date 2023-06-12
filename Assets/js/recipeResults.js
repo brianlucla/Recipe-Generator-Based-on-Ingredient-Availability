@@ -59,11 +59,9 @@ function printVideo() {
 
 function clearRecipe() {
   window.localStorage.removeItem("recipes");
-  window.localStorage.removeItem("videos");
   window.location.reload();
 }
 
 document.getElementById("clear").onclick = clearRecipe;
-
 printRecipe();
 printVideo();
