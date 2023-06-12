@@ -25,7 +25,7 @@ THEN I am again presented with current recipe webpage and form inputs
 N/A
 
 ## Usage
-URL of deployed application :
+URL of deployed application : https://brianlucla.github.io/Recipe-Generator-Based-on-Ingredient-Availability/
 
 URL of Github repository : https://github.com/brianlucla/Recipe-Generator-Based-on-Ingredient-Availability/tree/main
 
