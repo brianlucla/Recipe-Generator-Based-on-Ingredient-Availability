@@ -12,7 +12,7 @@ SO THAT I can save and conveniently prepare my meal without having to spend too 
 
 ## Acceptance Criteria
 GIVEN a recipe webpage with form inputs
-WHEN I enter and search for a recipe
+WHEN I add the ingredients and click on submit
 THEN I am presented with list of dishes including recipe name, ingredients, instruction and video
 WHEN I click on view saved recipes
 THEN I am brought to another page with previous recipe searches
