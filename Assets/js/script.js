@@ -6,6 +6,7 @@ var tableContEl = document.getElementById("table-cont");
 var customTableContEl = document.getElementById("customTable");
 var saveRecipe = document.getElementById("saved-recipes");
 var customTableEl = document.getElementById("custom-Table");
+var hello;
 
 var ingredientArray = [];
 var recipeIDArray = [];
