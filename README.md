@@ -16,8 +16,6 @@ WHEN I enter and search for a recipe
 THEN I am presented with list of dishes including recipe name, ingredients, instruction and video
 WHEN I click on view saved recipes
 THEN I am brought to another page with previous recipe searches
-WHEN I click clear all
-THEN I am able to delete all saved recipe
 WHEN I click on go back
 THEN I am again presented with current recipe webpage and form inputs
 
