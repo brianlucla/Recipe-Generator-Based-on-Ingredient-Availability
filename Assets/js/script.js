@@ -3,12 +3,15 @@ var addButtonEl = document.getElementById("add-button");
 var listEl = document.getElementById("ingredient-list");
 var submitButtonEl = document.getElementById("submit-button");
 var tableContEl = document.getElementById("table-cont");
+var customTableContEl = document.getElementById("customTable");
+var saveRecipe = document.getElementById("saved-recipes");
 
 var ingredientArray = [];
 var recipeIDArray = [];
 var recipeNameArray = [];
 var youtubeIdArray = [];
 var youtubeNameArray = [];
+
 
 //api keys and variables
 var apiKeyS = "af54f7a30e8046b1b260079d64b6bdf4";
@@ -102,6 +105,7 @@ function fetchRecipeInstructions(array) {
 }
 
 var createRecipeTable = function (array) {
+  customTableContEl.style.visibility = "visible";
   console.log(array.length);
   // var youtubeIdArray = [];
   for (let i = 0; i < array.length; i++) {
@@ -266,6 +270,10 @@ function saveToLsVid(videoId, videoTitle) {
 
 
 // event listeners
+submitButtonEl.addEventListener("click", function(event){
+  customTableEl.style.visibility = "visible";
+  fetchRecipeIDs();
+});
 addButtonEl.addEventListener("click", getIngredient);
 submitButtonEl.addEventListener("click", fetchRecipeIDs);
 submitEl.addEventListener("keypress", function (event) {

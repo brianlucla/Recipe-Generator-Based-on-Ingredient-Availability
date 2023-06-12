@@ -1,6 +1,8 @@
+var customTableContEl = document.getElementById("customTable");
 function printRecipe() {
   var LocalStorageArr =
     JSON.parse(window.localStorage.getItem("recipes")) || [];
+
 
   for (let i = 0; i < LocalStorageArr.length; i++) {
     // create html elements
@@ -63,6 +65,5 @@ function clearRecipe() {
 }
 
 document.getElementById("clear").onclick = clearRecipe;
-
 printRecipe();
 printVideo();
