@@ -3,6 +3,10 @@ var addButtonEl = document.getElementById("add-button");
 var listEl = document.getElementById("ingredient-list");
 var submitButtonEl = document.getElementById("submit-button");
 var tableContEl = document.getElementById("table-cont");
+var customTableContEl = document.getElementById("customTable");
+var saveRecipe = document.getElementById("saved-recipes");
+var customTableEl = document.getElementById("custom-Table");
+var hello;
 
 var ingredientArray = [];
 var recipeIDArray = [];
@@ -11,14 +15,12 @@ var youtubeIdArray = [];
 var youtubeNameArray = [];
 
 //api keys and variables
-var apiKeyS = "9a8a21c80703498185912689fff944fb";
+var apiKeyS = "005a66769d894a8cb1f3e2d9aa5584e6";
 var baseApiUrlS = "https://api.spoonacular.com/recipes";
-var apiKeyY = "AIzaSyC4py26ZpNYdYQXRhti8DtO6hXKvXWbk2A";
+var apiKeyY = "AIzaSyDs6_tTGdbQDFfNdA64vnQI14jGjHgWQPk";
 var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
 
 function getIngredient() {
-  var ingredient = submitEl.value.trim();
-  submitEl.value = "";
   var ingredient = submitEl.value.trim();
   submitEl.value = "";
   ingredientArray.push(ingredient);
@@ -227,8 +229,8 @@ function displayVideo(videoId, videoTitle, tableRow) {
 
   tableRow.appendChild(videoContainerEl);
 
-  videoPartEl.innerHTML = `<iframe width="250" height="250" src="https://www.youtube.com/embed/${videoId}"></iframe>
-    <h3>${videoTitle}</h3>`;
+  videoPartEl.innerHTML = `<iframe width="250" height="250" src="https://www.youtube.com/embed/${videoId}"></iframe>`;
+  // <h3>${videoTitle}</h3>`;
 
   videoContainerEl.appendChild(videoPartEl);
   saveToLsVid(videoId, videoTitle);
@@ -236,7 +238,6 @@ function displayVideo(videoId, videoTitle, tableRow) {
   console.log("hi");
   // youtubeVideosUrl();
 }
-
 
 function saveToLS(recipename, ingred, inst) {
   if (submitEl !== "") {
@@ -254,7 +255,6 @@ function saveToLS(recipename, ingred, inst) {
   }
 }
 
-
 function saveToLsVid(videoId, videoTitle) {
   var videoData = {
     id: videoId,
@@ -266,10 +266,12 @@ function saveToLsVid(videoId, videoTitle) {
   window.localStorage.setItem("videos", JSON.stringify(localStorageArr));
 }
 
-
 // event listeners
+submitButtonEl.addEventListener("click", function (event) {
+  customTableEl.style.visibility = "visible";
+  fetchRecipeIDs();
+});
 addButtonEl.addEventListener("click", getIngredient);
-submitButtonEl.addEventListener("click", fetchRecipeIDs);
 submitEl.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();

@@ -5,35 +5,41 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <link rel="stylesheet" href="./Assets/css/reset.css">
   <link rel="stylesheet" href="Assets/css/style.css">
   <title>Document</title>
 </head>
 
 <body>
+
   <header>
-    <h3><a href="./recipeResults.html">View Saved Recipes</a></h3>
+    <h1 id="h1">Recipe Generator!!!</h1>
+    <h3><a id="saved-recipes" href="./recipeResults.html">View Saved Recipes</a></h3>
 
   </header>
+
   <div id="content-container">
-    <input type="search" id="recipe-input" placeholder="Type in your ingredients!" autocomplete="on" name="ingredients">
-    <button id="add-button">Add</button>
-    <button id="submit-button">Submit Ingredient List!</button>
+    <buttons>
+      <input type="search" id="recipe-input" placeholder="Type in your ingredients one at a time!" autocomplete="on"
+        name="ingredients">
+      <button id="add-button">Add</button>
+      <button id="submit-button">Submit</button>
+    </buttons>
+
 
 
     <ol id="ingredient-list">
 
     </ol>
-    <div class="col-md col-xl-8">
-      <table class="custom-table">
+    <div class="container">
+      <table class="custom-table" id="custom-Table">
         <thead>
           <tr>
-            <th>Recipe Name</th>
-            <th>Ingredient List</th>
-            <th>Recipe Instructions</th>
-            <th>Youtube Video</th>
-
-
+            <th id="recipe-name">Recipe Name</th>
+            <th id="recipe-ingredients">Ingredient List</th>
+            <th id="recipe-instructions">Recipe Instructions</th>
+            <th id="recipe-video">Youtube Video</th>
+            <br>
           </tr>
         </thead>
         <tbody id="table-cont">
