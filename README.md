@@ -28,9 +28,10 @@ N/A
 Usage
 URL of deployed application : https://brianlucla.github.io/Recipe-Generator-Based-on-Ingredient-Availability/
 
-URL of Github repository : https://github.com/brianlucla/Recipe-Generator-Based-on-Ingredient-Availability/tree/main
+URL of Github repository : https://github.com/brianlucla/Recipe-Generator-Based-on-Ingredient-Availability
 
 Screenshot of deployed application can be found here: 
+![screenshot](./Assets/project01-screenshot.png)
 
 Credits
 Breakdown of tasks and roles:
