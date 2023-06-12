@@ -5,6 +5,7 @@ var submitButtonEl = document.getElementById("submit-button");
 var tableContEl = document.getElementById("table-cont");
 var customTableContEl = document.getElementById("customTable");
 var saveRecipe = document.getElementById("saved-recipes");
+var customTableEl = document.getElementById("custom-Table");
 
 var ingredientArray = [];
 var recipeIDArray = [];
@@ -14,9 +15,9 @@ var youtubeNameArray = [];
 
 
 //api keys and variables
-var apiKeyS = "af54f7a30e8046b1b260079d64b6bdf4";
+var apiKeyS = "005a66769d894a8cb1f3e2d9aa5584e6";
 var baseApiUrlS = "https://api.spoonacular.com/recipes";
-var apiKeyY = "AIzaSyC4py26ZpNYdYQXRhti8DtO6hXKvXWbk2A";
+var apiKeyY = "AIzaSyDs6_tTGdbQDFfNdA64vnQI14jGjHgWQPk";
 var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
 
 function getIngredient() {
@@ -105,7 +106,6 @@ function fetchRecipeInstructions(array) {
 }
 
 var createRecipeTable = function (array) {
-  customTableContEl.style.visibility = "visible";
   console.log(array.length);
   // var youtubeIdArray = [];
   for (let i = 0; i < array.length; i++) {
@@ -275,7 +275,6 @@ submitButtonEl.addEventListener("click", function(event){
   fetchRecipeIDs();
 });
 addButtonEl.addEventListener("click", getIngredient);
-submitButtonEl.addEventListener("click", fetchRecipeIDs);
 submitEl.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();

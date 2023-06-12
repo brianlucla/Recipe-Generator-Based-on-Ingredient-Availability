@@ -92,3 +92,7 @@ iframe {
 ::placeholder {
   text-align: center;
 }
+
+#custom-Table{
+  visibility:hidden;
+}
