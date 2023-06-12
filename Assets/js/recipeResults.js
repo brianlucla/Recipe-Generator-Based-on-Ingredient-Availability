@@ -50,8 +50,8 @@ function printVideo() {
     var videoContainerEl = document.createElement("td");
     tableRows[i].appendChild(videoContainerEl);
 
-    videoPartEl.innerHTML = `<iframe width="250" height="250" src="https://www.youtube.com/embed/${localStorageArr[i].id}"></iframe>
-    <h3>${localStorageArr[i].title}</h3>`;
+    videoPartEl.innerHTML = `<iframe width="300" height="150" margin=0 auto src="https://www.youtube.com/embed/${localStorageArr[i].id}"></iframe>`;
+    //<h3>${localStorageArr[i].title}</h3>`;
 
     videoContainerEl.appendChild(videoPartEl);
   }

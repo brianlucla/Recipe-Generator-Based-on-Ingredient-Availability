@@ -11,7 +11,7 @@ var youtubeIdArray = [];
 var youtubeNameArray = [];
 
 //api keys and variables
-var apiKeyS = "9a8a21c80703498185912689fff944fb";
+var apiKeyS = "af54f7a30e8046b1b260079d64b6bdf4";
 var baseApiUrlS = "https://api.spoonacular.com/recipes";
 var apiKeyY = "AIzaSyC4py26ZpNYdYQXRhti8DtO6hXKvXWbk2A";
 var baseApiUrlY = "https://www.googleapis.com/youtube/v3";
@@ -225,8 +225,8 @@ function displayVideo(videoId, videoTitle, tableRow) {
 
   tableRow.appendChild(videoContainerEl);
 
-  videoPartEl.innerHTML = `<iframe width="250" height="250" src="https://www.youtube.com/embed/${videoId}"></iframe>
-    <h3>${videoTitle}</h3>`;
+  videoPartEl.innerHTML = `<iframe width="250" height="250" src="https://www.youtube.com/embed/${videoId}"></iframe>`;
+  // <h3>${videoTitle}</h3>`;
 
   videoContainerEl.appendChild(videoPartEl);
   saveToLsVid(videoId, videoTitle);
